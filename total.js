@@ -1,17 +1,25 @@
-document.getElementById("apply-coupon-value").addEventListener("keyup",function(event){
+ document.getElementById("apply-coupon-value").addEventListener("keyup",function(event){
     const promoValue = document.getElementById("promo-code-value").innerText;
-    const text = event.target.value;
+     const text = event.target.value;
     
-   if(text === promoValue){
-   document.getElementById("apply-coupon-btn").removeAttribute("disabled");
-   document.getElementById("apply-coupon-btn").style.background ='#E527B2';
-   }
-   else{
-    document.getElementById("apply-coupon-btn").setAttribute("disabled",true);
-   }
-   
   
-})
+    document.getElementById("apply-coupon-btn").addEventListener("click",function(){
+
+    document.getElementById("apply-coupon-value").value =" ";
+    if(text === promoValue){
+    const totalPrice = convertStringToNumber("total-price");
+    const discountFix = totalPrice*.2;
+    const discount =discountFix.toFixed(2);
+    const newTotalFix =totalPrice-discount;
+    const newTotal =newTotalFix.toFixed(2);
+    document.getElementById("discount").innerText=discount;
+    document.getElementById("total").innerText=newTotal;}
+   
+ 
+ })
+ 
+ })
+
 function convertStringToNumber(id){
 const stringValue =document.getElementById(id).innerText;
 const value = parseFloat(stringValue);
@@ -19,19 +27,6 @@ const value = parseFloat(stringValue);
 
 return value;
 }
-
-document.getElementById("apply-coupon-btn").addEventListener("click",function(){
-    document.getElementById("apply-coupon-value").value =" ";
-   const totalPrice = convertStringToNumber("total-price");
-   const discountFix = totalPrice*.2;
-   const discount =discountFix.toFixed(2);
-   const newTotalFix =totalPrice-discount;
-   const newTotal =newTotalFix.toFixed(2);
-   document.getElementById("discount").innerText=discount;
-   document.getElementById("total").innerText=newTotal;
-
-})
-
 
 function calculationAndSetting(input1,input2){
 const input =convertStringToNumber(input1);
@@ -50,6 +45,10 @@ const count = addElement.childElementCount;
 add.innerHTML =`${count+1}.${addp}  `
 addElement.appendChild(add);
 document.getElementById("purchase").removeAttribute("disabled");
+if(newTotalPrice>=200){
+    document.getElementById("apply-coupon-btn").removeAttribute("disabled");
+        document.getElementById("apply-coupon-btn").style.background ='#E527B2';
+}
 
 }
 
@@ -67,7 +66,6 @@ document.getElementById("home").addEventListener("click",function(){
   }
   window.location.href="index.html";
 })
-
 
 
 
